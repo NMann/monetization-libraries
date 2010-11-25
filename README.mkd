@@ -4,18 +4,16 @@ This is a native PHP interface for developers who would like to
 monetize with 140 Proof but don't feel like writing custom code or
 using bare HTTP/REST. Using these API bindings, you can call native
 PHP code and rapidly fetch targeted, high-quality ads for your site.
+Docs and error-handling are included. Also check out the 
+[Ruby wrapper for the 140 Proof API](http://github.com/reddavis/One40proof).
 
 Requires
 ------------
-[cURL](http://php.net/manual/en/book.curl.php)
-[PHP5](http://www.php.net/downloads.php)
+* [cURL](http://php.net/manual/en/book.curl.php)
+* [PHP5](http://www.php.net/downloads.php)
 
 Usage
 ------------
     $api = new Api140Proof( "my_cool_app" );
     $api_url = $api->getAd( "jm3", "xml" );
 
-Notes
------------
-Docs and error-handling are included. Also check out the 
-[Ruby wrapper for the 140 Proof API](http://github.com/reddavis/One40proof).
