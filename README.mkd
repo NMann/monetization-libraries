@@ -1,8 +1,14 @@
 PHP API wrapper for the 140 Proof Monetization API
 =============================
-This is a native PHP interface for calling the 140 Proof ad API,
-so you don't need to "roll your own" code to implement 140 Proof —
-just call native PHP code and get back an ads to display on your site.
+This is a native PHP interface for developers who would like to
+monetize with 140 Proof but don't feel like writing custom code or
+using bare HTTP/REST. Using these API bindings, you can call native
+PHP code and rapidly fetch targeted, high-quality ads for your site.
+
+Requires
+------------
+[cURL](http://php.net/manual/en/book.curl.php)
+[PHP5](http://www.php.net/downloads.php)
 
 Usage
 ------------
@@ -11,4 +17,5 @@ Usage
 
 Notes
 -----------
-Docs and error-handling are included. Also check out the [Ruby wrapper for the 140 Proof API](http://github.com/reddavis/One40proof).
+Docs and error-handling are included. Also check out the 
+[Ruby wrapper for the 140 Proof API](http://github.com/reddavis/One40proof).
