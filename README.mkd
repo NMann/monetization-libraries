@@ -1,0 +1,14 @@
+PHP API wrapper for the 140 Proof Monetization API
+=============================
+This is a native PHP interface for calling the 140 Proof ad API,
+so you don't need to "roll your own" code to implement 140 Proof —
+just call native PHP code and get back an ads to display on your site.
+
+Usage
+------------
+    $api = new Api140Proof( "my_cool_app" );
+    $api_url = $api->getAd( "jm3", "xml" );
+
+Notes
+-----------
+Docs and error-handling are included. Also check out the [Ruby wrapper for the 140 Proof API](http://github.com/reddavis/One40proof).
