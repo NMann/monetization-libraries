@@ -1,0 +1,134 @@
+= 140Proof API Wrapper
+
+This is a wrapper around the 140 Proof API.
+
+It is split into two parts. The first is a simple interface (One40Proof::UserAd) and the second is a multi interface (One40Proof::Multi::UserAd).
+
+<b>The simple interface requires:</b>
+
+- http://github.com/jnunemaker/httparty
+
+<b>The multi interface requires:</b>
+
+- http://github.com/pauldix/typhoeus
+
+<b>They both require:</b>
+
+- http://gembundler.com
+- http://flori.github.com/json
+
+The multi interface allows you to make parallel requests (benchmarks are below).
+
+Documentation for the 140Proof API can be found here - http://developers.140proof.com/docs
+
+== RDoc
+
+http://rdoc.info/projects/reddavis/One40Proof
+
+== Install
+
+  ## Beta V2 ##
+  git clone git://github.com/reddavis/One40Proof.git
+  rake gemspec
+  rake build
+  rake install
+
+  ## Stable ##
+  gem sources -a http://gemcutter.org
+  sudo gem install one40_proof
+
+== Benchmarks
+
+## Broken ##
+
+This can be found on the benchmark dir
+
+  n = 10
+  Benchmark.bm do |x|
+    x.report("Simple") do
+      n.times { One40Proof::Test.new }
+    end
+    x.report("Multi") do
+      query = []
+      n.times { query << {:method => :test} }
+      One40Proof::Multi::UserAd.new(query)
+    end
+  end
+
+                ## Ruby 1.9.1 ##
+            user      system      total      real
+  Simple  0.030000   0.020000   0.050000 (  2.507165)
+  Multi   0.010000   0.010000   0.020000 (  0.426687)
+
+## End Broken ##
+
+== How To Use
+
+<b>Making Parallel Requests</b>
+
+Queries are created using a hash and then placed in an array
+
+  require 'rubygems'
+  require 'one40_proof/multi'
+
+  queries = []
+  queries << {:user_name => 'reddavis', :app_name => 'Test'}
+  queries << {:user_name => 'sferik', :app_name => 'Test'}
+
+  # We then initialize the calls to the service
+  a = One40Proof::Multi::UserAd.new(queries)
+
+  # Then we have access to all our ads
+  a.ads.each do |ad|
+    # The Ad
+    ad.advertiser
+    ad.byline
+    ad.text
+    ad.type # Banner or Text
+    ad.tweet_url
+    ad.validate_impression!  # Sends a GET request to the impression_validation url
+    ad.click_url
+    ad.impression_url
+  end
+
+  # You can also specify what happens if a request fails
+  a = One40Proof::Multi::UserAd.new(queries, :on_fail => "Fail!")
+
+  # It can also take anything that responds to #call
+  # e.g. One40Proof::Multi::UserAd.new(queries, :on_fail => Proc.new {raise "fail"})
+
+  # If all our requests fail then:
+  a.ads
+    #=> ["Fail!", "Fail!", "Fail!"]
+
+  # If nothing is specified on_fail then a nil object is just placed inside the array
+
+
+<b>Making Single Requests</b>
+
+  require 'rubygems'
+  require 'one40_proof/simple'
+
+  ad = One40Proof::UserAd.new(:user_name => 'reddavis', :app_name => 'your app_name', :network => "Twitter")
+
+  # The Ad
+  ad.advertiser
+  ad.byline
+  ad.text
+  ad.type # Banner or Text
+  ad.tweet_url
+  ad.validate_impression!  # Sends a GET request to the impression_validation url
+  ad.click_url
+  ad.impression_url
+
+== TODO
+
+* Make it more difficult to make mistakes (passing wrong param names, incorrect params etc...)
+
+== Issues
+
+Please report any problems or feature requests here[http://github.com/reddavis/One40Proof/issues].
+
+== Copyright
+
+Copyright (c) 2010 Red Davis. See LICENSE for details.
