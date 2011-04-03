@@ -1,0 +1,73 @@
+# 140 Proof AdWhirl Setup:
+
+== Background ==
+In this demo/example, a 140 Proof HTML Ad is implemented on iOS
+in the AdWhirlSDK2_Sample app using an "AdWhirl Custom Event" 
+(http://code.google.com/p/adwhirl/wiki/CustomEvents). The ad unit 
+was only tested/implemented in the Simple View of the Sample app.
+
+This example is iOS specific, and may not work on other platforms. 
+
+
+== How's it work? ==
+  Within AdWhirl, 140 Proof ads are implemented as a Custom Event.
+  We do not have a custom adapter. AdWhirl handles selecting which 
+  ad network to show an ad from. When it decides to show a 140 Proof
+  ad, the 'proof custom event' is triggered.
+
+  The proof custom event handler renders an 140 Proof HTML ad in 
+  a UIWebView. It then passes this UIWebView to AdWhirl, and 
+  AdWhirlView handles showing it.
+
+  The proof 'click handler' detects new requests within the ads 
+  UIWebView. This allows us to:
+
+    1. Keep the user in-app *
+
+    2. Capture different request urls and trigger 
+       app-specific handlers.
+
+    3. Customize the UX/UI per-application
+
+  * The ProofViewController included is only meant to be an example 
+  of how to implement a self-contained in-app ad experience. You 
+  should replace the ProofViewController with your own view controller 
+  to maintain the continuity of your UI/UX.
+
+== Implementation details ==
+  #The files
+    1.  Get the sample app AdWhirlSDK2_Sample
+    2.  Add ProofViewController.h in PROJECT/Classes
+    3.  Add ProofViewController.m in PROJECT/Classes
+    4.  Add ProofViewContoller.xib in PROJECT/Resources
+
+  #Setup
+    Open PROJECT/Classes/SimpleViewController.m
+    - import ProofViewController.h
+    - Make sure your AdWhirl key is defined (kSampleAppKey)
+    - Add the custom event handler (PROOF custom event)
+    - Modify the 140 Proof api call to pass the Twitter user_id
+      and your 140 Proof app_id 
+      (line 449 of Classes/SimpleViewController.m)
+    - Add the 140 Proof ad click handler (PROOF click handler)
+
+  #Goto adwhirl.com
+    - Follow the instructions for setting up a 'Custom Event'
+    - The name of the Proof custom event method should match
+    - For testing, I set up a Custom Event named 'proof' @100% of traffic
+
+  #Build and run
+    - Build and run the app from XCode
+    - When the app loads, click 'Simple View'
+    - If the ad does not load click 'Request New Ad' or 'Request New Config'
+    - You should eventually see an ad at the top of the window.
+    - When you click the ad, you should see an overlay w/ the landing page
+    - When you click "close", you should be returned to your app
+
+== Troubleshooting ==
+  If the app won't build or run, check that you've removed any AdWhirl Adapters that
+  you don't need/use.
+
+  If you don't see an ad in the "simple view", try 'Request new ad' or 'Request new config'
+
+  

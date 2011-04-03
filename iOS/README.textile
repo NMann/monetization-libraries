@@ -1,0 +1,13 @@
+!https://img.skitch.com/20110321-qkfj8qe4uuhj48druk54imbxux.png!
+
+h1. 140 Proof for iOS devices
+
+h2. Quick-start sample code for developers who wish to monetize their apps using 140 Proof
+
+h3. adwhirl-iOS-integration/
+
+  a sample impmentation of 140 Proof ads using AdWhirl's ad mediator code
+
+h3.  plain-iOS-integration/
+
+  a "bare" impmentation of 140 Proof ads, using no third-party code
